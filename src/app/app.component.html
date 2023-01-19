@@ -1,0 +1,107 @@
+<div class="container">
+  <div class="card mt-5" style="align-items: center;">
+    <h1>Student Info</h1>
+  </div>
+  <div class="card mt-5" style="padding: 20px;">
+    <form #registerForm="ngForm" (ngSubmit)="register(registerForm)" action="/action_page.php" class="was-validated">
+      <div class="form-group" style="padding: 10px;">
+        <label for="name">Student Name:</label>
+        <input type="text" #name (ngModel)="name" name="name" id="name" class="form-control" placeholder="Student name" required>
+      
+      </div>
+      <div class="form-group" style="padding: 10px;">
+        <label for="age">Student Age:</label>
+        <input type="number" #age (ngModel)="age" name="age" id="age" class="form-control" placeholder="Student age" required>
+       
+      </div>
+      <div class="form-group" style="padding: 10px;">
+        <label for="mobile">Contact Number:</label>
+        <input type="text" #number (ngModel)="number" name="mobile" id="mobile" class="form-control"
+          placeholder="Contact number" required>
+        
+      </div>
+      <div class="form-group" style="padding: 10px;">
+        <label for="gender">Student Gender:</label>
+        <select #gender (ngModel)="gender" name="gender" id="gender" class="form-control"
+          placeholder="Student gender" required>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          </select>
+    
+      </div>
+    
+      <button type="submit" class="btn btn-primary w-100">Submit</button>
+    </form>
+  </div>
+  <div class="mt-5" style="padding: 20px;">
+    <table class="table table-bordered">
+      <thead class="thead">
+        <tr>
+          <th>Student ID</th>
+          <th>Student Name</th>
+          <th>Student Age</th>
+          <th>Contact Number</th>
+          <th>Student Gender</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody class="tbody">
+        <tr *ngFor="let student of studentDetails?.data">
+          <td>{{student.id}}</td>
+          <td>{{student.name}}</td>
+          <td>{{student.age}}</td>
+          <td>{{student.mobile}}</td>
+          <td>{{student.gender}}</td>
+          <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="update(student)">Update</button></td>
+          <td><button type="button" class="btn btn-danger" (click)="deleteStudent(student)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Student</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #registerForm="ngForm">
+          <div class="form-group" style="padding: 10px;">
+            <label for="name">Student ID:</label>
+            <input type="number" disabled="" #id [(ngModel)]="studentToUpdate.id" name="id" id="id" class="form-control" placeholder="Student ID">
+          </div>
+          <div class="form-group" style="padding: 10px;">
+            <label for="name">Student Name:</label>
+            <input type="text" #name [(ngModel)]="studentToUpdate.name" name="name" id="name" class="form-control" placeholder="Student name">
+          </div>
+          <div class="form-group" style="padding: 10px;">
+            <label for="age">Student Age:</label>
+            <input type="number" #age [(ngModel)]="studentToUpdate.age" name="age" id="age" class="form-control" placeholder="Student age">
+          </div>
+          <div class="form-group" style="padding: 10px;">
+            <label for="mobile">Contact Number:</label>
+            <input type="text" #number [(ngModel)]="studentToUpdate.mobile" name="mobile" id="mobile" class="form-control"
+              placeholder="Contact number">
+          </div>
+          <div class="form-group" style="padding: 10px;">
+            <label for="gender">Student Gender:</label>
+            <select type="text" #gender [(ngModel)]="studentToUpdate.gender" name="gender" id="gender" class="form-control"
+              placeholder="Student gender">
+              <option value="Male">Male</option>
+          <option value="Female">Female</option>
+         </select>
+          </div>
+          <div class="form-group" style="padding: 10px;">
+            <input type="submit" value="Update" class="btn btn-primary w-100" (click)="updateStudent()">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
